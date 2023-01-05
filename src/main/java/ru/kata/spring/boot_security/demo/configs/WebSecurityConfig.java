@@ -18,20 +18,37 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public WebSecurityConfig(SuccessUserHandler successUserHandler) {
         this.successUserHandler = successUserHandler;
     }
+//    Код из задания
+
+
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//        http
+//                .authorizeRequests()
+//                .antMatchers("/", "/index").permitAll()//сюда пишем urlы, которые доступны без регистрации
+//                .antMatchers("/users/all").hasRole("USER")
+//                .anyRequest().authenticated()
+//                .and()
+//                .formLogin().successHandler(successUserHandler)
+//                .permitAll()
+//                .and()
+//                .logout()
+//                .permitAll();
+//    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests()
-                .antMatchers("/", "/index").permitAll()//сюда пишем urlы, которые доступны без регистрации
-                .antMatchers("/users/all").hasRole("ADMIN")
-                .anyRequest().authenticated()
+        http.authorizeRequests()
+                .antMatchers("/").permitAll()
+                .antMatchers("/admins_page").hasRole("ADMIN")
+                .antMatchers("/users_page").hasAnyRole("ADMIN", "USER")
                 .and()
-                .formLogin().successHandler(successUserHandler)
-                .permitAll()
+                .formLogin().successHandler(successUserHandler)// стандартная форма для логина
                 .and()
-                .logout()
-                .permitAll();
+                .logout().logoutSuccessUrl("/") //  при успешеном разлогинивании выйти в корень сайта
+                .and()
+                .csrf().disable(); // защита от CSRF-атак
+
     }
 
     // аутентификация inMemory
