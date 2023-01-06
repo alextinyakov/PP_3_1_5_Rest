@@ -3,40 +3,49 @@
 
 
 <head>
-  <meta charset="UTF-8">
-  <title>All users</title>
+    <meta charset="UTF-8">
+    <title>All users</title>
 </head>
 <body>
 <h3>All users</h3>
 
 <table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Email</th>
+        <th>Username</th>
+        <th>Action</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tr
+            th:each="user : ${userslist}">
+        <td th:text="${user.getId()}">Id</td>
+        <td th:text="${user.getEmail()}">email</td>
+        <td th:text="${user.getUsername()}">Name</td>
 
-  <tr
-          th:each="user : ${userslist}">
-    <td th:text="${user.getId()}">Id</td>
-    <td th:text="${user.getUsername()}">Name</td>
-    <td th:text="${user.getEmail()}">email</td>
 
-    <td>
+        <td>
 
-      <a th:href="@{/users/edit/{id}(id=${user.getId()})}">Edit</a>
+            <a th:href="@{/edit/{id}(id=${user.getId()})}">Edit</a>
 
-    </td>
+        </td>
 
-    <td>
-      <a th:href="@{/users/deleteUser/{id}(id=${user.getId()})}">Delete</a>
+        <td>
+            <a th:href="@{/deleteUser/{id}(id=${user.getId()})}">Delete</a>
 
-    </td>
+        </td>
 
-  </tr>
+    </tr>
 
 
 </table>
 
-
+<br>
 <a th:href="@{/users/add}">Add User</a>
-
-
+<br>
+<a th:href="@{/logout}">logout</a>
 
 
 </body>

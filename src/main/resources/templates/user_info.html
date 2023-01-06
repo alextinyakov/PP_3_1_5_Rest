@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<h3>About user</h3>
+<h3>User Info</h3>
 <table>
     <thead>
     <tr>
@@ -24,5 +24,9 @@
     <td th:text="${user.getUsername()}"></td>
     </tbody>
 </table>
+<br>
+    <a th:href="@{/logout}">logout</a>
+
+
 </body>
 </html>

@@ -46,24 +46,24 @@ public class UserController {
         return "successCreatedUser";
     }
 
-    @GetMapping("/edit/{id}")
-    public String edit (Model model, @PathVariable("id") Long id ){
-       model.addAttribute("user", userService.showById(id));
-       return "edit";
-    }
+//    @GetMapping("/edit/{id}")
+//    public String edit (Model model, @PathVariable("id") Long id ){
+//       model.addAttribute("user", userService.showById(id));
+//       return "edit";
+//    }
+//
+//    @PostMapping ("/edit")
+//    public String update(@ModelAttribute("user") User user){
+//       userService.update(user);
+//       return "redirect:/users/all";
+//
+//    }
 
-    @PostMapping ("/edit")
-    public String update(@ModelAttribute("user") User user){
-       userService.update(user);
-       return "redirect:/users/all";
-
-    }
-
-    @GetMapping(value = "/deleteUser/{id}")
-    public String deleteUser(@PathVariable("id") Long id) {
-        userService.delete(id);
-        return "redirect:/users/all";
-    }
+//   @GetMapping(value = "/deleteUser/{id}")
+//    public String deleteUser(@PathVariable("id") Long id) {
+//        userService.delete(id);
+//        return "redirect:/users/all";
+//    }
 
 
 }

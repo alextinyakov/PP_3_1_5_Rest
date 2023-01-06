@@ -1,14 +1,16 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-  <title>Admins page</title>
+    <title>Admins page</title>
 </head>
 <body>
 <h3>Admins page!</h3>
 <h3>Choose action:</h3>
 
 <a th:href="@{/show_all}">Show all users</a>
-
+<br>
+<a th:href="@{/logout}">logout</a>
 
 
 </body>

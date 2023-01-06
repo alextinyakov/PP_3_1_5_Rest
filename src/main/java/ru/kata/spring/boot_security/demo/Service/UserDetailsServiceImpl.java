@@ -17,21 +17,7 @@ import java.util.stream.Collectors;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-//    private final UserRepository userRepository;
-//
-//    public UserDetailsServiceImpl(UserRepository userRepository) {
-//        this.userRepository = userRepository;
-//    }
-//
-//    @Override
-//    public UserDetails loadUserByUsername(String username) {
-//        User user = userRepository.findByUsername(username);
-//        if (user != null) {
-//            return user;
-//        } else {
-//            throw new UsernameNotFoundException("User not found");
-//        }
-//    }
+
     private UserRepository userRepository;
 
         public UserDetailsServiceImpl(UserRepository userRepository) {
@@ -54,13 +40,16 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     // ru.tinyakov.security_training.entities.User.roles, could not initialize proxy - no Session
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = findByUsername(username); //  если юзер в базе есть - мы его получим, если нет, то получим null
-        if(user == null) {
+        if (user == null) {
             throw new UsernameNotFoundException(String.format("User '%s' not found", username)); // юзер с таким именем не найден
         }
         return user;
+    }
+
+    //  С этой херней из видео почему то не работает ошибка 500.
 //        new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
 //                mapRolesToAuthorities(user.getRoles()));
-    }
+
 
 //    // получаем коллекцию авторитис(прав доступа) из коллекции ролей и передаем в loadUserByUsername
 //    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles){
