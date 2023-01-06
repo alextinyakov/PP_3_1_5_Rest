@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+<head>
+    <meta http-equiv='Content-Type'
+          content='text/html; charset=UTF-8'/>
+    <title>User info</title>
+</head>
+<body>
+
+<h3>About user</h3>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Email</th>
+        <th>Username</th>
+    </tr>
+    </thead>
+    <tbody>
+    <td th:text="${user.getId()}"></td>
+    <td th:text="${user.getEmail()}"></td>
+    <td th:text="${user.getUsername()}"></td>
+    </tbody>
+</table>
+</body>
+</html>

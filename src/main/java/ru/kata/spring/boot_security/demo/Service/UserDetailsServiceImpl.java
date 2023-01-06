@@ -17,12 +17,30 @@ import java.util.stream.Collectors;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
+//    private final UserRepository userRepository;
+//
+//    public UserDetailsServiceImpl(UserRepository userRepository) {
+//        this.userRepository = userRepository;
+//    }
+//
+//    @Override
+//    public UserDetails loadUserByUsername(String username) {
+//        User user = userRepository.findByUsername(username);
+//        if (user != null) {
+//            return user;
+//        } else {
+//            throw new UsernameNotFoundException("User not found");
+//        }
+//    }
     private UserRepository userRepository;
 
-    @Autowired
-    public void setUserRepository(UserRepository userRepository) {
+        public UserDetailsServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
+//    @Autowired
+//    public void setUserRepository(UserRepository userRepository) {
+//        this.userRepository = userRepository;
+//    }
     // обертка над методом из интерфейса UserRepository
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
@@ -39,13 +57,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if(user == null) {
             throw new UsernameNotFoundException(String.format("User '%s' not found", username)); // юзер с таким именем не найден
         }
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
-                mapRolesToAuthorities(user.getRoles()));
+        return user;
+//        new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
+//                mapRolesToAuthorities(user.getRoles()));
     }
 
-
-    // получаем коллекцию авторитис(прав доступа) из коллекции ролей и передаем в loadUserByUsername
-    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles){
-        return roles.stream().map(r -> new SimpleGrantedAuthority(r.getName())).collect(Collectors.toList());
-    }
+//    // получаем коллекцию авторитис(прав доступа) из коллекции ролей и передаем в loadUserByUsername
+//    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles){
+//        return roles.stream().map(r -> new SimpleGrantedAuthority(r.getName())).collect(Collectors.toList());
+//    }
 }
