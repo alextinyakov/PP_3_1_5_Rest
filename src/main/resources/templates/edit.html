@@ -12,12 +12,12 @@
   <fieldset>
 
     <p>
-      <label th:for="name">Enter name</label>
-      <input type="text" name="firstName" th:id="name" th:value="${user.getFirstName()}">
+      <label th:for="name">Enter Username</label>
+      <input type="text" name="Username" th:id="username" th:value="${user.getUsername()()}">
     </p>
     <p>
-      <label th:for="lastName">Enter lastname</label>
-      <input type="text" name="lastName" th:id="lastName" th:value="${user.getLastName()}"><br/>
+      <label th:for="password">Enter password</label>
+      <input type="password" name="password" th:id="password" th:value="${user.getPassword()}"><br/>
 
     </p>
     <p>
@@ -26,13 +26,28 @@
     </p>
 
   </fieldset>
-
+  <tr>
+    <td>Roles</td>
+    <td>
+      <label>
+        <select multiple="multiple" size="${roles.size()}" name="roleId">
+          <option disabled>Select roles</option>
+          <option th:each="role:${role}"
+                  th:value="${role.getId()}"
+                  th:text="${role.getName()}"
+                  th:selected="${role.getName().equals('ROLE_USER') ? 'selected' :'false'}"
+          ></option>
+        </select>
+      </label>
+    </td>
+  </tr>
+<br><br><br>
   <button type="submit">save</button>
 </form>
 
 
 <br/>
-<form th:action="@{/users/all}">
+<form th:action="@{/admin/show_all}">
   <button type="submit">back</button>
 </form>
 

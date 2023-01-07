@@ -27,11 +27,11 @@ public class UserController {
     }
 
 
-    @GetMapping("/all")
-    public String allUsers(ModelMap model) {
-        model.addAttribute("userslist", userService.index());
-        return "users";
-    }
+//    @GetMapping("/all")
+//    public String allUsers(ModelMap model) {
+//        model.addAttribute("userslist", userService.index());
+//        return "users";
+//    }
 
 //    @GetMapping(value = "/add")
 //    public String addUser(Model model) {

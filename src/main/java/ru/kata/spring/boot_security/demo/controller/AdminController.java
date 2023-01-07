@@ -6,7 +6,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.Service.RoleService;
 import ru.kata.spring.boot_security.demo.Service.UserService;
+import ru.kata.spring.boot_security.demo.models.Role;
 import ru.kata.spring.boot_security.demo.models.User;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
@@ -62,6 +65,38 @@ public class AdminController {
         userService.add(user, roleId);
         return "successCreatedUser";
     }
+
+    @GetMapping("/edit/{id}")
+    public String editUser(Model model, @PathVariable ("id") Long id) {
+        User user = userService.findById(id);
+        List<Role> roleList = roleService.getAllRoles();
+        model.addAttribute("user", user);
+        model.addAttribute("roleList", roleList);
+        return "edit2";
+    }
+        @PostMapping(value = "/edit/{id}")
+    public String editUser(@ModelAttribute("user") User user, @RequestParam(name = "roleId") Long[] roleId ){
+        //       user.setId(user.getId());
+        userService.add(user, roleId);
+        return "successCreatedUser";
+    }
+//    @PostMapping("/user-update/{id}")
+//    public String update(@ModelAttribute("user") User user, @PathVariable("id") Long id) {
+//        //       user.setId(user.getId());
+//        appService.saveUser(user);
+//        return "redirect:/admin";
+//    }
+//    @GetMapping("/user-update/{id}")
+//    public String edit(Model model, @PathVariable("id") Long id) {
+//        User user = appService.getUserById(id);
+//        List<Role> listRoles = appService.listRoles();
+//        model.addAttribute("user", user);
+//        model.addAttribute("listRoles", listRoles);
+//
+//        return "user-update";
+//    }
+//
+
 
 //    @GetMapping("/user-create")
 //    public String createUserForm(User user, Model model) {
