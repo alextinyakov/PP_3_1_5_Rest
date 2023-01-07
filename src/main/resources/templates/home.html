@@ -7,9 +7,15 @@
 <h3>Welcome to Home page!</h3>
 <h3>Choose your role:</h3>
 
-<a th:href="@{/admins_page}">Admin</a>
-<a th:href="@{/users_page}">User</a>
 
 
+<form th:action="@{/admin/admins_page}" th:method="GET">
+  <input type="submit" value="Admin"/>
+</form>
+<br>
+<br>
+<form th:action="@{/users_page}" th:method="GET">
+  <input type="submit" value="User"/>
+</form>
 </body>
 </html>

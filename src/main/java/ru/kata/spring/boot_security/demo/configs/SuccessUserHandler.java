@@ -20,7 +20,7 @@ public class SuccessUserHandler implements AuthenticationSuccessHandler {
             httpServletResponse.sendRedirect("/users_page");// указываем куда нас перебросить после успешной авторизации под юзером
         }
         else if (roles.contains("ROLE_ADMIN")) {
-            httpServletResponse.sendRedirect("/admins_page");// указываем куда нас перебросить после успешной авторизации под админом
+            httpServletResponse.sendRedirect("/admin/admins_page");// указываем куда нас перебросить после успешной авторизации под админом
         }
         else {
             httpServletResponse.sendRedirect("/");

@@ -7,81 +7,43 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import ru.kata.spring.boot_security.demo.Service.UserDetailsServiceImpl;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-
+    private final SuccessUserHandler successUserHandler;
     private UserDetailsServiceImpl userDetailsServiceImpl;
 
+//    @Autowired
+//    public void setUserDetailsServiceImpl(UserDetailsServiceImpl userDetailsServiceImpl) {
+//        this.userDetailsServiceImpl = userDetailsServiceImpl;
+//    }
+
     @Autowired
-    public void setUserDetailsServiceImpl(UserDetailsServiceImpl userDetailsServiceImpl) {
+    public WebSecurityConfig(UserDetailsServiceImpl userDetailsServiceImpl, SuccessUserHandler successUserHandler) {
         this.userDetailsServiceImpl = userDetailsServiceImpl;
-    }
-
-    private final SuccessUserHandler successUserHandler;
-
-    public WebSecurityConfig(SuccessUserHandler successUserHandler) {
         this.successUserHandler = successUserHandler;
     }
-//    Код из задания
 
-
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        http
-//                .authorizeRequests()
-//                .antMatchers("/", "/index").permitAll()//сюда пишем urlы, которые доступны без регистрации
-//                .antMatchers("/users/all").hasRole("USER")
-//                .anyRequest().authenticated()
-//                .and()
-//                .formLogin().successHandler(successUserHandler)
-//                .permitAll()
-//                .and()
-//                .logout()
-//                .permitAll();
-//    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers("/admins_page/**").hasRole("ADMIN")
+                .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/users_page/**").hasAnyRole("ADMIN", "USER")
                 .and()
                 .formLogin().successHandler(successUserHandler)// стандартная форма для логина
                 .and()
-                .logout().logoutSuccessUrl("/") //  при успешеном разлогинивании выйти в корень сайта
-                .and()
-                .csrf().disable(); // защита от CSRF-атак
+                .logout().logoutSuccessUrl("/"); //  при успешеном разлогинивании выйти в корень сайта
+               // .csrf().disable(); // отключаем защиту от межсайтовой подделки запросов Cross-Site Request Forgery
+                // для стандартной формы логина она по умолчанию включена
 
     }
 
-//    // аутентификация inMemory
-//    @Bean
-//    @Override
-//    public UserDetailsService userDetailsService() {
-//        UserDetails user =
-//                User.withDefaultPasswordEncoder()
-//                        .username("user")
-//                        .password("user")
-//                        .roles("USER")
-//                        .build();
-//        UserDetails admin =
-//                User.withDefaultPasswordEncoder()
-//                        .username("admin")
-//                        .password("admin")
-//                        .roles("ADMIN")
-//                        .build();
-//        return new InMemoryUserDetailsManager(user, admin);
-//    }
 
     // Кодировщик паролей
     @Bean
@@ -101,3 +63,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
 }
+
+//    // аутентификация inMemory
+//    @Bean
+//    @Override
+//    public UserDetailsService userDetailsService() {
+//        UserDetails user =
+//                User.withDefaultPasswordEncoder()
+//                        .username("user")
+//                        .password("user")
+//                        .roles("USER")
+//                        .build();
+//        UserDetails admin =
+//                User.withDefaultPasswordEncoder()
+//                        .username("admin")
+//                        .password("admin")
+//                        .roles("ADMIN")
+//                        .build();
+//        return new InMemoryUserDetailsManager(user, admin);
+//    }

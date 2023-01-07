@@ -8,7 +8,7 @@ import ru.kata.spring.boot_security.demo.Service.UserService;
 import ru.kata.spring.boot_security.demo.models.User;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/admin")
 public class AdminController {
     private final UserService userService;
 
@@ -26,12 +26,18 @@ public class AdminController {
         model.addAttribute("userslist", userService.index());
         return "allUsers";
     }
-
-    @GetMapping(value = "/deleteUser/{id}")
-    public String deleteUser(@PathVariable("id") Long id) {
+// Переделал на PostMapping согласно комментарию к прошлой задаче
+    @PostMapping(value = "/deleteUser/{id}")
+    public String delete( @PathVariable("id") Long id) {
         userService.delete(id);
-        return "redirect:/show_all";
+        return "redirect:/admin/show_all";
     }
+
+//    @GetMapping(value = "/deleteUser/{id}")
+//    public String deleteUser(@PathVariable("id") Long id) {
+//        userService.delete(id);
+//        return "redirect:/admin/show_all";
+//    }
 //    @GetMapping("/edit/{id}")
 //    public String edit (Model model, @PathVariable("id") Long id ){
 //        model.addAttribute("user", userService.showById(id));

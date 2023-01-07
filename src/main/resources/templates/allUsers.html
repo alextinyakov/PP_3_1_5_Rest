@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
 
 <head>
@@ -25,27 +25,29 @@
         <td th:text="${user.getEmail()}">email</td>
         <td th:text="${user.getUsername()}">Name</td>
 
-
         <td>
-
-            <a th:href="@{/edit/{id}(id=${user.getId()})}">Edit</a>
+            <a th:href="@{/admin/edit/{id}(id=${user.getId()})}">Edit</a>
 
         </td>
 
         <td>
-            <a th:href="@{/deleteUser/{id}(id=${user.getId()})}">Delete</a>
+            <form th:action="@{/admin/deleteUser/{id}(id=${user.getId()})}" th:method="POST">
+                <input type="submit" value="Delete"/>
+            </form>
 
         </td>
-
     </tr>
-
-
 </table>
-
 <br>
-<a th:href="@{/users/add}">Add User</a>
 <br>
-<a th:href="@{/logout}">logout</a>
+<form th:action="@{/users/add}" th:method="GET">
+    <input type="submit" value="Add User"/>
+</form>
+<br>
+<br>
+<form th:action="@{/logout}" th:method="POST">
+    <input type="submit" value="Logout"/>
+</form>
 
 
 </body>

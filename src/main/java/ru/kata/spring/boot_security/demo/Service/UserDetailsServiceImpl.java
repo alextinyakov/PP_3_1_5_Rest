@@ -46,7 +46,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return user;
     }
 
-    //  С этой херней из видео почему то не работает ошибка 500.
+    //  С этой херней из видео почему то не работает, ошибка 500.
 //        new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
 //                mapRolesToAuthorities(user.getRoles()));
 

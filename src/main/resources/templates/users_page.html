@@ -5,9 +5,21 @@
 </head>
 <body>
 <h3>Users page!</h3>
+<h2>Hello, <td th:text="${user.getUsername()}"></td> </h2>
+
+
 <h3>Choose action:</h3>
 
-<a th:href="@{/user_info}">User info</a>
+
+
+<form th:action="@{/user_info}" th:method="GET">
+  <input type="submit" value="User Info"/>
+</form>
+<br>
+<br>
+<form th:action="@{/logout}" th:method="POST">
+  <input type="submit" value="Logout"/>
+</form>
 
 
 
