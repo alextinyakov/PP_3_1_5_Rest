@@ -33,18 +33,18 @@ public class UserController {
         return "users";
     }
 
-    @GetMapping(value = "/add")
-    public String addUser(Model model) {
-//        User user = new User();
-        model.addAttribute("user", new User());
-        return "new";
-    }
+//    @GetMapping(value = "/add")
+//    public String addUser(Model model) {
+////        User user = new User();
+//        model.addAttribute("user", new User());
+//        return "new";
+//    }
 
-    @PostMapping(value = "/add")
-    public String addUser(@ModelAttribute("user") User user) {
-        userService.add(user);
-        return "successCreatedUser";
-    }
+//    @PostMapping(value = "/add")
+//    public String addUser(@ModelAttribute("user") User user) {
+//        userService.add(user);
+//        return "successCreatedUser";
+//    }
 
 //    @GetMapping("/edit/{id}")
 //    public String edit (Model model, @PathVariable("id") Long id ){
