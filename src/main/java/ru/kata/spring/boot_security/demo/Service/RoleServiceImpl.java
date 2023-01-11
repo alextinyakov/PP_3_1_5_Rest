@@ -27,4 +27,5 @@ public class RoleServiceImpl implements RoleService {
     public Set<Role> getSetRoles(Long[] roleId) {
         return roleRepository.findByIdIn(roleId);
     }
+
 }

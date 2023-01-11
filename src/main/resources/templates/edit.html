@@ -1,54 +1,73 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Edit User</title>
+  <meta charset="utf-8">
+  <title>Edit user</title>
 </head>
 <body>
-<h2>Edit User</h2>
 
-<form th:action="@{/edit}" th:object="${user}" method="post">
-  <input type="hidden" name="id" th:value="${user.getId()}">
-  <fieldset>
-
-    <p>
-      <label th:for="name">Enter Username</label>
-      <input type="text" name="Username" th:id="username" th:value="${user.getUsername()()}">
-    </p>
-    <p>
-      <label th:for="password">Enter password</label>
-      <input type="password" name="password" th:id="password" th:value="${user.getPassword()}"><br/>
-
-    </p>
-    <p>
-      <label th:for="email">Enter email</label>
-      <input type="text" name="email" th:id="email" th:value="${user.getEmail()}"><br/>
-    </p>
-
-  </fieldset>
-  <tr>
-    <td>Roles</td>
-    <td>
-      <label>
-        <select multiple="multiple" size="${roles.size()}" name="roleId">
-          <option disabled>Select roles</option>
-          <option th:each="role:${role}"
-                  th:value="${role.getId()}"
-                  th:text="${role.getName()}"
-                  th:selected="${role.getName().equals('ROLE_USER') ? 'selected' :'false'}"
-          ></option>
-        </select>
-      </label>
-    </td>
-  </tr>
-<br><br><br>
-  <button type="submit">save</button>
-</form>
+<form th:action="@{/admin/edit/{id}}"
+      th:object="${user}"
+      th:method="Patch">
+  <table>
+    <tr>
+      <td></td>
+      <td><label>
+        <input type="text" hidden name="id" th:field="*{id}"/>
+      </label></td>
+    </tr>
+    <tr>
+      <td>Username</td>
+      <td><label>
+        <input type="text" name="username" th:field="*{username}"/>
+      </label></td>
+    </tr>
+    <tr>
+      <td>Email</td>
+      <td><label>
+        <input type="text" name="email" th:field="*{email}"/>
+      </label></td>
+    </tr>
+    <tr>
+      <td>Password</td>
+      <td><label>
+        <input type="password" name="password" th:field="*{password}"/>
+      </label></td>
+    </tr>
+    <tr>
+      <td>Age</td>
+      <td><label>
+        <input type="text" name="age" th:field="*{age}"/>
+      </label></td>
+    </tr>
 
 
-<br/>
-<form th:action="@{/admin/show_all}">
-  <button type="submit">back</button>
+    <tr>
+      <td>Roles</td>
+      <td>
+        <label>
+          <select multiple="multiple" size="${roles.size()}" name="roleId">
+            <option disabled>Select roles</option>
+            <option th:each="role:${roleList}"
+                    th:value="${role.getId()}"
+                    th:text="${role.getName()}"
+                    th:selected="${user.getRoles().contains(role) ? 'selected' : 'false'}"
+            ></option>
+          </select>
+        </label>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <input type="submit" value="Edit"/>
+      </td>
+    </tr>
+  </table>
+
+</form>  <form th:action="@{/admin/show_all}">
+  <button type="submit" >Back to all users</button>
 </form>
 
 </body>

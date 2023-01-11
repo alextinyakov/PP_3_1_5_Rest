@@ -15,23 +15,26 @@
         <th>ID</th>
         <th>Email</th>
         <th>Username</th>
+        <th>Age</th>
         <th>Action</th>
         <th>Action</th>
     </tr>
     </thead>
     <tr
-            th:each="user : ${userslist}">
+            th:each="user : ${usersList}">
         <td th:text="${user.getId()}">Id</td>
         <td th:text="${user.getEmail()}">email</td>
         <td th:text="${user.getUsername()}">Name</td>
+        <td th:text="${user.getAge()}">Age</td>
 
         <td>
-            <a th:href="@{/admin/edit/{id}(id=${user.getId()})}">Edit</a>
-
+            <form th:action="@{/admin/edit/{id}(id=${user.getId()})}">
+                <input type="submit" value="Edit"/>
+            </form>
         </td>
 
         <td>
-            <form th:action="@{/admin/deleteUser/{id}(id=${user.getId()})}" th:method="POST">
+            <form th:action="@{/admin/deleteUser/{id}(id=${user.getId()})}" th:method="Delete">
                 <input type="submit" value="Delete"/>
             </form>
 
