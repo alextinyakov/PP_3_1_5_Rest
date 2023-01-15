@@ -3,12 +3,14 @@ package ru.kata.spring.boot_security.demo.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.Service.RoleService;
 import ru.kata.spring.boot_security.demo.Service.UserService;
 import ru.kata.spring.boot_security.demo.models.Role;
 import ru.kata.spring.boot_security.demo.models.User;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -43,6 +45,7 @@ public class AdminController {
     }
 
 
+
     @GetMapping("/addUser")
     public String addUser(Model model) {
         model.addAttribute("user", new User());
@@ -50,12 +53,17 @@ public class AdminController {
         return "new";
     }
 
+
     @PostMapping(value = "/addUser")
-    public String addUser(@ModelAttribute("user") User user,
-                          @RequestParam(name = "roleId") Long[] roleId) {
+    public String addUser(@ModelAttribute("user") @Valid User user,
+                          BindingResult bindingResult,
+                          @RequestParam(name = "roleId") Long[] roleId){
+        if (bindingResult.hasErrors())
+            return "new";
         userService.add(user, roleId);
         return "successCreatedUser";
     }
+
 
     @GetMapping("/edit/{id}")
     public String editUser(Model model, @PathVariable("id") Long id) {

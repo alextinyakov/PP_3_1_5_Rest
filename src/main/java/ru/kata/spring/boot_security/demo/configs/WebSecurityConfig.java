@@ -17,17 +17,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final SuccessUserHandler successUserHandler;
     private UserDetailsServiceImpl userDetailsServiceImpl;
 
-//    @Autowired
-//    public void setUserDetailsServiceImpl(UserDetailsServiceImpl userDetailsServiceImpl) {
-//        this.userDetailsServiceImpl = userDetailsServiceImpl;
-//    }
-
     @Autowired
     public WebSecurityConfig(UserDetailsServiceImpl userDetailsServiceImpl, SuccessUserHandler successUserHandler) {
         this.userDetailsServiceImpl = userDetailsServiceImpl;
         this.successUserHandler = successUserHandler;
     }
-
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -39,11 +33,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin().successHandler(successUserHandler)// стандартная форма для логина
                 .and()
                 .logout().logoutSuccessUrl("/"); //  при успешеном разлогинивании выйти в корень сайта
-               // .csrf().disable(); // отключаем защиту от межсайтовой подделки запросов Cross-Site Request Forgery
+               //.csrf().disable(); // отключаем защиту от межсайтовой подделки запросов Cross-Site Request Forgery
                 // для стандартной формы логина она по умолчанию включена
 
     }
-
 
     // Кодировщик паролей
     @Bean
