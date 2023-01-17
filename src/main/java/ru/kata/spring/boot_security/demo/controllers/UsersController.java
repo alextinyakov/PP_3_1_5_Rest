@@ -1,4 +1,4 @@
-package ru.kata.spring.boot_security.demo.controller;
+package ru.kata.spring.boot_security.demo.controllers;
 
 
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,13 +16,13 @@ public class UsersController {
     public String usersPage(Model model) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("user", user);
-        return "users_page";
+        return "usersPage";
     }
 
     @GetMapping("/user_info")
     public String showUserInfo(Model model) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("user", user);
-        return "user_info";
+        return "userInfo";
     }
 }

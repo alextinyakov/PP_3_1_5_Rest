@@ -1,7 +1,8 @@
-package ru.kata.spring.boot_security.demo.Service;
+package ru.kata.spring.boot_security.demo.services;
 
 import org.springframework.stereotype.Service;
 import ru.kata.spring.boot_security.demo.models.Role;
+import ru.kata.spring.boot_security.demo.models.User;
 import ru.kata.spring.boot_security.demo.repositories.RoleRepository;
 
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.Set;
 @Service
 public class RoleServiceImpl implements RoleService {
     private final RoleRepository roleRepository;
-    private List<Role> roles;
+
 
     public RoleServiceImpl(RoleRepository roleRepository) {
         this.roleRepository = roleRepository;
@@ -18,10 +19,8 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public List<Role> getAllRoles() {
-        if (roles == null) {
-            roles = roleRepository.findAll();
-        }
-        return roles;
+        return roleRepository.findAll();
+
     }
 
     public Set<Role> getSetRoles(Long[] roleId) {

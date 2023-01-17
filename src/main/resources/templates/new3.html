@@ -24,6 +24,7 @@
     <label for="age">Enter age</label>
     <input type="text" th:field="*{age}" id="age"/>
     <div th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Age error</div>
+
     <br/>
 
         <td>Roles</td>
