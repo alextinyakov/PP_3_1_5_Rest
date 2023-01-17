@@ -25,22 +25,19 @@
     <input type="text" th:field="*{age}" id="age"/>
     <div th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Age error</div>
 
-    <br/>
 
-        <td>Roles</td>
-        <td>
-            <label>
-                <select multiple="multiple" size="${roles.size()}" name="roleId">
-                    <option disabled>Select roles</option>
-                    <option th:each="role:${role}"
-                            th:value="${role.getId()}"
-                            th:text="${role.getName()}"
-                            th:selected="${role.getName().equals('ROLE_USER') ? 'selected' :'false'}"
-                    ></option>
-                </select>
-            </label>
-        </td>
-    <br/>
+    <p>
+        <label>Roles:
+            <input type="checkbox" name="roles"
+                   th:each="role : ${role}"
+                   th:text="${role.getName}"
+                   th:value="${role.getId()}"
+                   th:field="*{roles}"
+            />
+        </label>
+    </p>
+
+
     <input type="submit" value="Add"/>
 </form>
 
