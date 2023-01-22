@@ -1,0 +1,333 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <style>
+        .nav-link {
+            color: gray;
+        }
+
+        .navbar-text {
+            color: white;
+        }
+
+        .mainPanel {
+            background-color: lightgray;
+        }
+
+        .leftBar {
+            background-color: white;
+        }
+    </style>
+</head>
+<body>
+<!-- Навбар в шапке страницы начало -->
+<nav class="navbar  bg-dark">
+    <!-- Показывает Email и Role вошедшего -->
+    <span class="navbar-text">
+<strong> <td th:text="${user.getEmail()}"></td> </strong> with roles:
+      <a th:each="role : ${user.getRoles()}" th:text="${role} + ' '"></a>
+  </span>
+    <a class="nav-link" href="/logout">Logout</a>
+</nav>
+<!-- Навбар в шапке страницы конец-->
+
+<!-- Навбар слева и Главная панель начало -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-md-12 col-md-12 col-lg-12 col-xl-12">
+            <div class="row ">
+                <!-- Навбар слева начало -->
+                <div class="col-2 col-md-2 col-md-2 col-lg-2 col-xl-2">
+                    <nav class="nav flex-column nav-pills leftBar">
+                        <!-- Кнопка-подушка Админ -->
+                        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist"
+                             aria-orientation="vertical">
+                            <a class="nav-link active"
+                               id="v-pills-home-tab"
+                               data-toggle="pill"
+                               href="#v-pills-home"
+                               role="tab" aria-controls="v-pills-home"
+                               aria-selected="true">Admin</a>
+
+                            <!-- Кнопка-подушка Юзер -->
+                            <a class="nav-link"
+                               id="v-pills-profile-tab"
+                               data-toggle="pill"
+                               href="#v-pills-profile"
+                               role="tab" aria-controls="v-pills-profile"
+                               aria-selected="false">User</a>
+                        </div>
+                    </nav>
+                </div>
+                <!-- Навбар слева конец -->
+
+                <!-- Главная часть начало -->
+                <div class="col-10 col-md-10 col-md-10 col-lg-10 col-xl-10">
+                    <div class="tab-content" id="v-pills-tabContent">
+
+                        <!-- Панель админа начало -->
+                        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel"
+                             aria-labelledby="v-pills-home-tab">
+                            <h3>Admin Panel</h3>
+
+                            <!-- Панель переключалок между таблицей юзеров и созданием нового юзера начало -->
+                            <div>
+                                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active"
+                                           id="usersTable-tab" data-toggle="tab"
+                                           href="#usersTable" role="tab"
+                                           aria-controls="usersTable"
+                                           aria-selected="true">
+                                            Users table
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link"
+                                           id="newUser-tab"
+                                           data-toggle="tab"
+                                           href="#newUser" role="tab"
+                                           aria-controls="newUser"
+                                           aria-selected="false">
+                                            New User
+                                        </a>
+                                    </li>
+
+                                </ul>
+                                <div class="tab-content" id="myTabContent">
+                                    <!-- Табличка юзеров (содержимое вкладки) -->
+                                    <div class="tab-pane fade show active" id="usersTable" role="tabpanel"
+                                         aria-labelledby="usersTable-tab">
+                                        <table class="table table-striped">
+                                            <thead>
+                                            <tr>
+                                                <th scope="col">Id</th>
+                                                <th scope="col">Email</th>
+                                                <th scope="col">Username</th>
+                                                <th scope="col">Age</th>
+                                                <th scope="col">Role</th>
+                                                <th scope="col">Edit</th>
+                                                <th scope="col">Delete</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <h3>All users</h3>
+                                            <tr
+                                                    th:each="user : ${usersList}">
+                                                <td th:text="${user.getId()}">Id</td>
+                                                <td th:text="${user.getEmail()}">Email</td>
+                                                <td th:text="${user.getUsername()}">Username</td>
+                                                <td th:text="${user.getAge()}">Age</td>
+                                                <td th:each="role : ${user.getRoles()}" th:text="${role} + ' '">Role
+                                                </td>
+                                                <!-- Кнопка Edit -->
+                                                <td>
+                                                    <button type="button"
+                                                            class="btn btn-info"
+                                                            data-toggle="modal"
+                                                            data-target="#Edit">
+                                                        Edit
+
+                                                    </button>
+                                                    <!-- Модальное окно кнопки Edit -->
+                                                    <div class="modal fade" id="Edit" tabindex="-1"
+                                                         role="dialog" aria-labelledby="exampleModalCenterTitle"
+                                                         aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="editUser">
+                                                                        Edit user</h5>
+                                                                    <button type="button" class="close"
+                                                                            data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    ...
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary"
+                                                                            data-dismiss="modal">Close
+                                                                    </button>
+                                                                    <button type="button" class="btn btn-primary">Edit
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <!-- Кнопка Delete -->
+                                                <td>
+                                                    <button type="button"
+                                                            class="btn btn-danger"
+                                                            data-toggle="modal"
+                                                            data-target="#Delete">
+                                                        Delete
+                                                    </button>
+                                                    <!-- Модальное окно кнопки Delete -->
+                                                    <div class="modal fade" id="Delete" tabindex="-1"
+                                                         role="dialog" aria-labelledby="exampleModalCenterTitle"
+                                                         aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="deleteUser">
+                                                                        Delete User</h5>
+                                                                    <button type="button" class="close"
+                                                                            data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    ...
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary"
+                                                                            data-dismiss="modal">Close
+                                                                    </button>
+                                                                    <button type="button" class="btn btn-danger">Delete
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+
+
+                                    </div>
+                                    <!-- Табличка создания нового юзера (содержимое вкладки) -->
+                                    <div class="tab-pane fade" id="newUser" role="tabpanel"
+                                         aria-labelledby="newUser-tab">
+                                        <form method="POST"
+                                              th:action="@{/admin/addUser}"
+                                              th:object="${user}">
+                                            <table>
+
+                                                <tr>
+                                                    <td>Username</td>
+                                                    <td><label>
+                                                        <input type="text" name="username" th:field="*{username}"/>
+                                                    </label></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Password</td>
+                                                    <td><label>
+                                                        <input type="password" name="password" th:field="*{password}"/>
+                                                    </label></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Email</td>
+                                                    <td><label>
+                                                        <input type="text" name="email" th:field="*{email}"/>
+                                                    </label></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Age</td>
+                                                    <td><label>
+                                                        <input type="text" name="age" th:field="*{age}"/>
+                                                    </label></td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>Roles</td>
+                                                    <td>
+                                                        <label>
+                                                            <select multiple="multiple" size="${roles.size()}" name="roleId">
+                                                                <option disabled>Select roles</option>
+                                                                <option th:each="role:${role}"
+                                                                        th:value="${role.getId()}"
+                                                                        th:text="${role.getName()}"
+                                                                        th:selected="${role.getName().equals('ROLE_USER') ? 'selected' :'false'}"
+                                                                ></option>
+                                                            </select>
+                                                        </label>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <input type="submit" value="Add"/>
+
+                                                </tr>
+                                            </table>
+                                        </form>
+
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+                            <!-- Панель переключалок между таблицей юзеров и созданием нового юзера конец -->
+
+
+                        </div>
+                        <!-- Панель админа конец -->
+
+                        <!-- Панель юзера начало -->
+                        <div class="tab-pane fade" id="v-pills-profile" role="tabpanel"
+                             aria-labelledby="v-pills-profile-tab">
+                            <h3>User information-page</h3>
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Id</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Username</th>
+                                    <th scope="col">Age</th>
+                                    <th scope="col">Role</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <h3>About user</h3>
+                                <tr>
+                                    <td th:text="${user.getId()}">Id</td>
+                                    <td th:text="${user.getEmail()}">Email</td>
+                                    <td th:text="${user.getUsername()}">Username</td>
+                                    <td th:text="${user.getAge()}">Age</td>
+                                    <td th:each="role : ${user.getRoles()}" th:text="${role} + ' '">Role
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- Панель юзера конец -->
+                    </div>
+                </div>
+                <!-- Главная часть конец -->
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- Навбар слева и Панель админ/юзер конец -->
+</div>
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+</html>

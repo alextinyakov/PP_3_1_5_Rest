@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class FirstController {
 
     @GetMapping("/")
-    public String home() {
+    public String login() {
 
-        return "home";
+       return  "redirect:/login";
     }
 }
