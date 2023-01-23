@@ -137,8 +137,8 @@
                                                             data-toggle="modal"
                                                             data-target="#Edit">
                                                         Edit
-
                                                     </button>
+
                                                     <!-- Модальное окно кнопки Edit -->
                                                     <div class="modal fade" id="Edit" tabindex="-1"
                                                          role="dialog" aria-labelledby="exampleModalCenterTitle"
@@ -172,15 +172,18 @@
                                                     <button type="button"
                                                             class="btn btn-danger"
                                                             data-toggle="modal"
-                                                            data-target="#Delete">
-                                                        Delete
+                                                            data-target="#Delete"
+                                                            >Delete
                                                     </button>
                                                     <!-- Модальное окно кнопки Delete -->
-                                                    <div class="modal fade" id="Delete" tabindex="-1"
+                                                    <div class="modal fade"
+
+                                                         id="Delete" tabindex="-1"
                                                          role="dialog" aria-labelledby="exampleModalCenterTitle"
                                                          aria-hidden="true">
                                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                                             <div class="modal-content">
+
                                                                 <div class="modal-header">
                                                                     <h5 class="modal-title" id="deleteUser">
                                                                         Delete User</h5>
@@ -198,7 +201,11 @@
                                                                     </button>
                                                                     <button type="button" class="btn btn-danger">Delete
                                                                     </button>
+                                                                    <form th:action="@{/admin/deleteUser/{id}(id=${user.getId()})}" th:method="Delete">
+                                                                        <input type="submit" value="Delete"/>
+                                                                    </form>
                                                                 </div>
+
                                                             </div>
                                                         </div>
                                                     </div>
