@@ -217,61 +217,54 @@
 
                                     </div>
                                     <!-- Табличка создания нового юзера (содержимое вкладки) -->
-                                    <div class="tab-pane fade" id="newUser" role="tabpanel"
+                                    <div class="tab-pane fade text-center col-3"  id="newUser" role="tabpanel"
                                          aria-labelledby="newUser-tab">
                                         <form method="POST"
                                               th:action="@{/admin/addUser}"
                                               th:object="${user}">
-                                            <table>
 
-                                                <tr>
-                                                    <td>Username</td>
-                                                    <td><label>
-                                                        <input type="text" name="username" th:field="*{username}"/>
-                                                    </label></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Password</td>
-                                                    <td><label>
-                                                        <input type="password" name="password" th:field="*{password}"/>
-                                                    </label></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Email</td>
-                                                    <td><label>
-                                                        <input type="text" name="email" th:field="*{email}"/>
-                                                    </label></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Age</td>
-                                                    <td><label>
-                                                        <input type="text" name="age" th:field="*{age}"/>
-                                                    </label></td>
-                                                </tr>
+                                            <div class="form-group">
+                                                <label for="usernameInput">Username</label>
+                                                <input type="text" class="form-control" id="usernameInput"
+                                                        placeholder="Enter username"
+                                                       th:field="*{username}">
+                                            </div>
 
-                                                <tr>
-                                                    <td>Roles</td>
-                                                    <td>
-                                                        <label>
-                                                            <select multiple="multiple" size="${roles.size()}" name="roleId">
-                                                                <option disabled>Select roles</option>
-                                                                <option th:each="role:${role}"
-                                                                        th:value="${role.getId()}"
-                                                                        th:text="${role.getName()}"
-                                                                        th:selected="${role.getName().equals('ROLE_USER') ? 'selected' :'false'}"
-                                                                ></option>
-                                                            </select>
-                                                        </label>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <input type="submit" value="Add"/>
+                                            <div class="form-group">
+                                                <label for="passwordInput">Password</label>
+                                                <input type="password" class="form-control" id="passwordInput"
+                                                       placeholder="Password"
+                                                       th:field="*{password}">
+                                            </div>
 
-                                                </tr>
-                                            </table>
+                                            <div class="form-group">
+                                                <label for="emailInput">Email</label>
+                                                <input type="email" class="form-control" id="emailInput"
+                                                       placeholder="Enter email"
+                                                       th:field="*{email}">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="ageInput">Age</label>
+                                                <input type="text" class="form-control" id="ageInput"
+                                                       placeholder="Enter age"
+                                                       th:field="*{age}">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="ageInput">Role
+                                                    <select multiple="multiple" size="${roles.size()}" name="roleId">
+                                                        <option disabled>Select roles</option>
+                                                        <option th:each="role:${role}"
+                                                                th:value="${role.getId()}"
+                                                                th:text="${role.getName()}"
+                                                                th:selected="${role.getName().equals('ROLE_USER') ? 'selected' :'false'}"
+                                                        ></option>
+                                                    </select>
+                                                </label>
+                                            </div>
+                                            <button type="submit" class="btn btn-success">Add new user</button>
                                         </form>
-
                                     </div>
 
                                 </div>

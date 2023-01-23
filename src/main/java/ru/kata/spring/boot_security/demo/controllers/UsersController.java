@@ -16,13 +16,13 @@ public class UsersController {
     public String usersPage(Model model) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("user", user);
-        return "usersPage";
+        return "users_page_b";
     }
 
     @GetMapping("/user_info")
     public String showUserInfo(Model model) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("user", user);
-        return "userInfo";
+        return "users_page_b";
     }
 }
