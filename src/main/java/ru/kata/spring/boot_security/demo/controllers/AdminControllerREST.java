@@ -41,7 +41,7 @@ public class AdminControllerREST {
 //    }
 
     // Методы RestController - возвращают JSON
-    @GetMapping("/admins_page")
+    @GetMapping()
     public ResponseEntity<List<User>> showAll() {
         return new ResponseEntity<> ( userService.index(), HttpStatus.OK );
     }
@@ -51,24 +51,24 @@ public class AdminControllerREST {
 //        return userService.findById(id);
 //    }
 
-    @GetMapping("/admins_page/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<User> showUser(@PathVariable("id") Long id) {
         return new ResponseEntity<> (userService.findById(id), HttpStatus.OK);
     }
 
-    @DeleteMapping("/admins_page/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<HttpStatus> deleteUser (@PathVariable Long id){
         userService.delete(id);
         return ResponseEntity.ok(HttpStatus.I_AM_A_TEAPOT);
     }
 
-    @PatchMapping("/admins_page")
+    @PatchMapping()
     public ResponseEntity<HttpStatus> updateUser (@RequestBody User user) {
         userService.add(user);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-    @PostMapping("/admins_page")
+    @PostMapping()
     public ResponseEntity<HttpStatus> addUser (@RequestBody User user){
         userService.add(user);
         return ResponseEntity.ok(HttpStatus.OK);

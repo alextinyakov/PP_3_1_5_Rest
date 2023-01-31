@@ -31,10 +31,10 @@ public class UserControllerREST {
 //        return new ResponseEntity<> (userService.findById(id), HttpStatus.OK);
 //    }
 
-        @GetMapping("/users_page/{id}")
-    public User getUser(@PathVariable Long id) {
-        return userService.findById(id);
-    }
+//        @GetMapping("/users_page/{id}")
+//    public User getUser(@PathVariable Long id) {
+//        return userService.findById(id);
+//    }
 
     @GetMapping("/user")
     public ResponseEntity<User> showAuthUser(Authentication authentication) {

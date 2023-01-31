@@ -9,12 +9,12 @@ public class StartAppController {
 
     @GetMapping("/admin")
     public String admin(){
-        return "admins_page_b9";
+        return "admin1";
     }
 
     @GetMapping("/user")
     public String user(){
-        return "users_page_b";
+        return "user1";
     }
 
 
