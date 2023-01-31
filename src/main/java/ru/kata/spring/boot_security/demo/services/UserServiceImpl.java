@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.models.User;
 import ru.kata.spring.boot_security.demo.repositories.UserRepository;
+import ru.kata.spring.boot_security.demo.utils.PersonNotFoundException;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -39,6 +41,14 @@ class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
+    public void add(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userRepository.save(user);
+    }
+
+
+    @Override
+    @Transactional
     public void delete(Long id) {
         userRepository.deleteById(id);
     }
@@ -46,10 +56,8 @@ class UserServiceImpl implements UserService {
     @Override
     public User findById(Long id) {
         Optional<User> foundUser =  userRepository.findById(id);
-        if (foundUser == null) {
-            throw new UsernameNotFoundException(String.format("User with id  '%s' not found", id));
-        }
-            return foundUser.orElse(null);
+
+            return foundUser.orElseThrow(PersonNotFoundException::new);
     }
 
 

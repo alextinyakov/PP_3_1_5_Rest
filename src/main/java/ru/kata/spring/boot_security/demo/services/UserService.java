@@ -7,7 +7,7 @@ import java.util.List;
 public interface UserService {
 
     void add(User user, Long[] roles);
-
+    void add(User user);
     List<User> index();
     void delete(Long id);
 

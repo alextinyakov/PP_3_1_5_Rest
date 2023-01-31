@@ -22,21 +22,72 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         this.userDetailsServiceImpl = userDetailsServiceImpl;
         this.successUserHandler = successUserHandler;
     }
-
+  //Секьюрность
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/").permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/users_page/**").hasAnyRole("ADMIN", "USER")
+                .antMatchers("/user/**").hasAnyRole("ADMIN", "USER")
                 .and()
                 .formLogin().successHandler(successUserHandler)// стандартная форма для логина
                 .and()
-                .logout().logoutSuccessUrl("/"); //  при успешеном разлогинивании выйти в корень сайта
-               //.csrf().disable(); // отключаем защиту от межсайтовой подделки запросов Cross-Site Request Forgery
+                .logout().logoutSuccessUrl("/")//  при успешеном разлогинивании выйти в корень сайта
+                .and()
+               .csrf().disable(); // отключаем защиту от межсайтовой подделки запросов Cross-Site Request Forgery
                 // для стандартной формы логина она по умолчанию включена
 
     }
+
+
+//    // Секьюрность отключена чтобы Postman работал - РАБОЧАЯ
+//    @Override
+//    protected void configure(HttpSecurity httpSecurity) throws Exception {
+//        httpSecurity
+//        .csrf().disable()
+//                .authorizeRequests().antMatchers("/").permitAll();
+//    }
+
+
+
+
+
+    // НЕ РАБОЧАЯ
+    // Секьюрность отключена чтобы Postman работал
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//        http.authorizeRequests()
+//                .antMatchers("/admin/**").permitAll()
+////                .antMatchers("/admin/**").hasRole("ADMIN")
+////                .antMatchers("/users_page/**").hasAnyRole("ADMIN", "USER")
+//                .and()
+//               // .formLogin().disable()
+////                .and()
+////                .logout().logoutSuccessUrl("/")//  при успешеном разлогинивании выйти в корень сайта
+////                .and()
+//                .csrf().disable(); // отключаем защиту от межсайтовой подделки запросов Cross-Site Request Forgery
+//        // для стандартной формы логина она по умолчанию включена
+//
+//    }
+
+
+    // НЕ РАБОЧАЯ
+    //    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//        http
+//                .httpBasic() // for postman
+//                .and()
+//                .authorizeRequests()
+//                .antMatchers("/admin/**").hasRole("ADMIN")
+//                .antMatchers("/user/**").hasAnyRole("USER", "ADMIN")
+//                .and()
+//                .csrf().disable() // for postman
+//                .formLogin().disable(); // for postman
+//    }
+
+
+
+
 
     // Кодировщик паролей
     @Bean
