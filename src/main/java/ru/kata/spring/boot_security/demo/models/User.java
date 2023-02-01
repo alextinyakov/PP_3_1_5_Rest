@@ -43,6 +43,14 @@ public class User implements UserDetails {
         this.age = age;
     }
 
+    public User(String username, String password, String email, Integer age, Set<Role> roles) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.age = age;
+        this.roles = roles;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return new HashSet<GrantedAuthority>(roles);

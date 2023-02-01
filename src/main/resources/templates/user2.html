@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <title>User Information-page</title>
+    <title>Информация о пользователе</title>
 </head>
 <body>
 <!--Верхняя навигационная панель-->
@@ -16,7 +16,7 @@
         <!--        Заполнение из js-->
     </div>
     <div class="btn btn-link mr-0 col-1 ml-auto">
-        <a class="badge" style="color: grey" href="/logout">Logout</a>
+        <a class="badge" style="color: grey" href="/logout">Выйти</a>
     </div>
 </div>
 <div class="container-fluid">
@@ -26,27 +26,23 @@
             <div class="col-2 nav flex-column nav-pills">
                 <a class="nav-link active" id="vertical_navigation-user" data-toggle="tab" href="#user_panel" role="tab"
                    aria-controls="user-panel" aria-selected="true"
-                   sec:authorize="hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')">User</a>
+                   sec:authorize="hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')">Пользователь</a>
             </div>
 
             <!--                Панель юзера-->
             <div class="col-10">
                 <div class="card">
-                    <h5 class="card-header">User Information - page
-                        <br> <br>
-                        <h5 class="text">About user</h5>
-                    </h5>
-
-
+                    <h5 class="card-header">О пользователе</h5>
                     <div class="card-body">
                         <table class="table table-striped">
                             <thead>
                             <tr>
                                 <th scope="col">ID</th>
-                                <th scope="col">Username</th>
-                                <th scope="col">Age</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Role</th>
+                                <th scope="col">Имя</th>
+                                <th scope="col">Фамилия</th>
+                                <th scope="col">Возраст</th>
+                                <th scope="col">Электронная почта</th>
+                                <th scope="col">Роль</th>
                             </tr>
                             </thead>
 
@@ -62,7 +58,7 @@
 </div>
 </div>
 
-<script src="user1.js"></script>
+<script src="user.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>

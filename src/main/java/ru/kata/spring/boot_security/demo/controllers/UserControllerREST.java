@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +15,7 @@ import ru.kata.spring.boot_security.demo.services.RoleService;
 import ru.kata.spring.boot_security.demo.services.UserService;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/user")
 public class UserControllerREST {
 
     private final UserService userService;
@@ -36,10 +37,18 @@ public class UserControllerREST {
 //        return userService.findById(id);
 //    }
 
-    @GetMapping("/user")
+    @GetMapping()
     public ResponseEntity<User> showAuthUser(Authentication authentication) {
         User user = (User) authentication.getPrincipal();
         return new ResponseEntity<> (user, HttpStatus.OK);
     }
+
+
+//    @GetMapping()
+//    public User showUserInfo() {
+//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//
+//        return user;
+//    }
 
 }
