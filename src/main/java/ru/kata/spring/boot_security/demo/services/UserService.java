@@ -8,6 +8,7 @@ public interface UserService {
 
     void add(User user, Long[] roles);
     void add(User user);
+    User update(User user);
     List<User> index();
     void delete(Long id);
 

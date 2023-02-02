@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class StartAppController {
 
     @GetMapping("/admin")
-    public String admin(){
+    public String admin() {
         return "admin1";
     }
 
     @GetMapping("/user")
-    public String user(){
+    public String user() {
         return "user1";
     }
 

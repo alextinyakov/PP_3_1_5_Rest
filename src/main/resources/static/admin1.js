@@ -130,11 +130,10 @@ let getDataOfCurrentUser = (id) => {
         .then(dataUser => {
             let user = {
                 id: dataUser.id,
-                name: dataUser.name,
-                lastName: dataUser.lastName,
-                age: dataUser.age,
-                email: dataUser.email,
+                username: dataUser.username,
                 password: dataUser.password,
+                email: dataUser.email,
+                age: dataUser.age,
                 roles: dataUser.roles
             }
             console.log(user)
@@ -147,15 +146,15 @@ function getRolesFromEditUserForm() {
     let rolesToEdit = [];
     if (roles.includes("1")) {
         let role1 = {
-            id: 1,
-            name: "Админ"
+            id: 2,
+            name: "User"
         }
         rolesToEdit.push(role1);
     }
     if (roles.includes("2")) {
         let role2 = {
-            id: 2,
-            name: "Юзер"
+            id: 1,
+            name: "Admin"
         }
         rolesToEdit.push(role2);
     }
@@ -171,10 +170,10 @@ allUsersTable.addEventListener("click", e => {
 //Удаление юзеров
 
     const deleteUsersId       = document.getElementById("delete-id")
-    const deleteUsersName     = document.getElementById("delete-name")
-    const deleteUsersLastName = document.getElementById("delete-lastName")
-    const deleteUsersAge      = document.getElementById("delete-age")
+    const deleteUsername     = document.getElementById("delete-username")
     const deleteUsersEmail    = document.getElementById("delete-email")
+    const deleteUsersAge      = document.getElementById("delete-age")
+
 
     if (delButtonIsPressed) {
         let currentUserId = e.target.dataset.id;
@@ -187,10 +186,10 @@ allUsersTable.addEventListener("click", e => {
             .then(res => res.json())
             .then(user => {
                 deleteUsersId.value       = user.id;
-                deleteUsersName.value     = user.name;
-                deleteUsersLastName.value = user.lastName;
-                deleteUsersAge.value      = user.age;
+                deleteUsername.value     = user.username;
                 deleteUsersEmail.value    = user.email;
+                deleteUsersAge.value      = user.age;
+
 
                 let deleteRoles = user.roles.map(i => i.roleName)
                 deleteRoles.forEach(
@@ -212,7 +211,7 @@ allUsersTable.addEventListener("click", e => {
             })
                 .then(res => res.json());
             modalDeleteExitBtn.click();
-            getAllUsers();
+            showAll();
             location.reload();
         })
     }
@@ -220,10 +219,10 @@ allUsersTable.addEventListener("click", e => {
 //Изменение юзеров
 
     const editUsersId       = document.getElementById("edit-id");
-    const editUsersName     = document.getElementById("edit-name");
-    const editUsersLastName = document.getElementById("edit-lastName");
-    const editUsersAge      = document.getElementById("edit-age");
+    const editUsername     = document.getElementById("edit-username");
     const editUsersEmail    = document.getElementById("edit-email");
+    const editUsersAge      = document.getElementById("edit-age");
+
 
     if (editButtonIsPressed) {
         let currentUserId = e.target.dataset.id;
@@ -237,8 +236,7 @@ allUsersTable.addEventListener("click", e => {
             .then(user => {
 
                 editUsersId.value       = user.id;
-                editUsersName.value     = user.name;
-                editUsersLastName.value = user.lastName;
+                editUsername.value     = user.username;
                 editUsersAge.value      = user.age;
                 editUsersEmail.value    = user.email;
 
@@ -259,14 +257,13 @@ allUsersTable.addEventListener("click", e => {
             e.preventDefault();
             let user = {
                 id: editUsersId.value,
-                name: editUsersName.value,
-                lastName: editUsersLastName.value,
-                age: editUsersAge.value,
+                username: editUsername.value,
                 email: editUsersEmail.value,
+                age: editUsersAge.value,
                 roles: getRolesFromEditUserForm()
             }
             fetch(`${requestURL}/${currentUserId}`, {
-                method: 'PUT',
+                method: 'PATCH',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json;charset=UTF-8'
@@ -275,7 +272,7 @@ allUsersTable.addEventListener("click", e => {
             })
                 .then(res => console.log(res));
             modalEditExitBtn.click();
-            getAllUsers();
+            showAll();
             location.reload();
         })
     }
@@ -336,15 +333,14 @@ let currentUser = () => {
                 userPanelData.innerHTML = `
                     <tr>
                         <td> ${user.id} </td>
-                        <td> ${user.name} </td>
-                        <td> ${user.lastName} </td>
+                        <td> ${user.username} </td>
                         <td> ${user.age} </td>
                         <td> ${user.email} </td>
-                        <td> ${user.roles.map((role) => role.name === "ROLE_USER" ? " Юзер" : " Админ")} </td>
+                        <td> ${user.roles.map((role) => role.name)} </td>
                     </tr>
                 `
                 authorisedUserData.innerHTML = `
-                    <p class="d-inline font-weight-bold">${user.email} с ролями ${user.roles.map((role) => role.name === "ROLE_USER" ? " Юзер" : " Админ")}</p>`
+                    <p class="d-inline font-weight-bold">${user.email} with roles: ${user.roles.map((role) => role.name)}</p>`
             }
         })
 }
