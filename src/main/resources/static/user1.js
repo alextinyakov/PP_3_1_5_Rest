@@ -2,7 +2,7 @@ const currentUserPanelData      = document.getElementById("current_user_panel-da
 const currentAuthorisedUserData = document.getElementById("current_authorised_user-data");
 
 let currentUser = () => {
-    fetch ("http://localhost:8080/api/user", {
+    fetch ("http://localhost:8080/api/v1/user", {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'

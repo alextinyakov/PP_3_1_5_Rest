@@ -11,16 +11,15 @@ import ru.kata.spring.boot_security.demo.models.User;
 import ru.kata.spring.boot_security.demo.services.UserService;
 
 @RestController
-@RequestMapping("/api/user")
-public class UserControllerREST {
+@RequestMapping("/api/v1/user")
+public class UserRestController {
 
     private final UserService userService;
 
 
     @Autowired
-    public UserControllerREST(UserService userService) {
+    public UserRestController(UserService userService) {
         this.userService = userService;
-
     }
 
     @GetMapping()

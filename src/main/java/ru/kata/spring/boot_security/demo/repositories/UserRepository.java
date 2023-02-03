@@ -16,15 +16,4 @@ public interface UserRepository extends JpaRepository<User, Long> {
     User findByUsername(String username); // JpaRepository распарсит имя метода и поймет, что мы хотим найти юзера по username
 
 
-    // Все это тут писать не надо. Сразу в UserService
-    void deleteById(Long Id);
-
-    @Override
-    List<User> findAll();
-
-    User save(User user);
-
-    Optional<User> findById(Long id);
-
-
 }

@@ -26,7 +26,7 @@ public class User implements UserDetails {
     private String email;
 
     private Integer age;
- //   @JsonManagedReference
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),

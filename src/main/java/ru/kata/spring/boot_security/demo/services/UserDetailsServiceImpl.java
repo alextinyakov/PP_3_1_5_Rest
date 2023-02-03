@@ -18,15 +18,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         public UserDetailsServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
-//    @Autowired
-//    public void setUserRepository(UserRepository userRepository) {
-//        this.userRepository = userRepository;
-//    }
-    // обертка над методом из интерфейса UserRepository
-    // метод удален по замечанию ментора
-//    public User findByUsername(String username) {
-//        return userRepository.findByUsername(username);
-//    }
 
     // переопределяем метод из UserDetailsService
     // по имени пользователя вернет самого пользователя
@@ -42,13 +33,4 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return user;
     }
 
-    //  С этой херней из видео почему то не работает, ошибка 500.
-//        new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
-//                mapRolesToAuthorities(user.getRoles()));
-
-
-//    // получаем коллекцию авторитис(прав доступа) из коллекции ролей и передаем в loadUserByUsername
-//    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles){
-//        return roles.stream().map(r -> new SimpleGrantedAuthority(r.getName())).collect(Collectors.toList());
-//    }
 }

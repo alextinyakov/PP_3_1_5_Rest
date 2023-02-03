@@ -1,4 +1,4 @@
-const requestURL = 'http://localhost:8080/api/admin';
+const requestURL = 'http://localhost:8080/api/v1/admin';
 
 const usersTableNavLink = document.getElementById("horizontal_navigation-users_table");
 const newUserNawLink    = document.getElementById("horizontal_navigation-new_user");
@@ -321,7 +321,7 @@ const userPanelData      = document.getElementById("user_panel-data");
 const authorisedUserData = document.getElementById("authorised_user-data");
 
 let currentUser = () => {
-    fetch ("http://localhost:8080/api/user", {
+    fetch ("http://localhost:8080/api/v1/user", {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'

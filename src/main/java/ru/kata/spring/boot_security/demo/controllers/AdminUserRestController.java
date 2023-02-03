@@ -12,13 +12,13 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/api/admin")
-public class AdminControllerREST {
+@RequestMapping("/api/v1/admin")
+public class AdminUserRestController {
     private final UserService userService;
 
 
     @Autowired
-    public AdminControllerREST(UserService userService) {
+    public AdminUserRestController(UserService userService) {
         this.userService = userService;
     }
 
@@ -29,6 +29,13 @@ public class AdminControllerREST {
     }
 
 
+    @PostMapping()
+    public ResponseEntity<HttpStatus> addUser(@RequestBody User user) {
+        userService.add(user);
+        return ResponseEntity.ok(HttpStatus.OK);
+
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<User> showUser(@PathVariable("id") Long id) {
         return new ResponseEntity<>(userService.findById(id), HttpStatus.OK);
@@ -37,24 +44,13 @@ public class AdminControllerREST {
     @DeleteMapping("/{id}")
     public ResponseEntity<HttpStatus> deleteUser(@PathVariable Long id) {
         userService.delete(id);
-        return ResponseEntity.ok(HttpStatus.I_AM_A_TEAPOT);
+        return ResponseEntity.ok(HttpStatus.OK);
     }
-
 
     @PatchMapping("/{id}")
     public ResponseEntity<HttpStatus> editUser(@RequestBody User user) {
-
         userService.update(user);
         return ResponseEntity.ok(HttpStatus.OK);
     }
-
-
-    @PostMapping()
-    public ResponseEntity<HttpStatus> addUser(@RequestBody User user) {
-        userService.add(user);
-        return ResponseEntity.ok(HttpStatus.OK);
-
-    }
-
 
 }
